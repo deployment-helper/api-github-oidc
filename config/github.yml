@@ -1,0 +1,21 @@
+# Github configuration
+# -------------------
+# Read values from environment variables
+
+default: &default
+  client_id: <%= ENV.fetch('GITHUB_CLIENT_ID') %>
+  client_secret: <%= ENV.fetch('GITHUB_CLIENT_SECRET') %>
+  cognito_redirect_uri: <%= ENV.fetch('COGNITO_REDIRECT_URI') %>
+  api_url: <%= ENV.fetch('GITHUB_API_URL') %>
+  login_url: <%= ENV.fetch('GITHUB_LOGIN_URL') %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
+
