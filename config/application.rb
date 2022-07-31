@@ -24,5 +24,8 @@ module ApiGithubOidc
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.x.github = config_for(:github)
+    rsa_private = OpenSSL::PKey::RSA.generate(2048)
+    config.x.rsa_private = rsa_private
+    config.x.rsa_public = rsa_private.public_key
   end
 end

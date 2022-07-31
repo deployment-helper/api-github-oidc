@@ -8,6 +8,7 @@ default: &default
   cognito_redirect_uri: <%= ENV.fetch('COGNITO_REDIRECT_URI') %>
   api_url: <%= ENV.fetch('GITHUB_API_URL') %>
   login_url: <%= ENV.fetch('GITHUB_LOGIN_URL') %>
+  jwt_subject: 'id_token'
 
 development:
   <<: *default

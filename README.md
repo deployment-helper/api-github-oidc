@@ -1,24 +1,57 @@
-# README
+# Authentication and authorization 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple authentication and authorization bakend for MCRC application. 
 
-Things you may want to cover:
+Authentication is done by AWS Cognito with Github integration.
 
-* Ruby version
+To integrate AWS Cognito with Gtihub we need to deploy OIDC connector application and to need to provide that OIDC 
+connector endpoints details to AWS Cognito.
 
-* System dependencies
+## OIDC Connector
 
-* Configuration
+**Endpoints for AWS Cognito**
 
-* Database creation
+    * **Authorization Endpoint**: https://github.com/login/oauth/authorize
+    * **Login URL**: https://<your-oidc-connector-url>/github/login-url [Local development only]
+    * **Token Endpoint**: https://<your-oidc-connector-url>/github/token
+    * **User Info Endpoint**: https://<your-oidc-connector-url>/github/userinfo
+    * **JWKS Endpoint**: https://<your-oidc-connector-url>/jwks
+    
+## Local development
 
-* Database initialization
+To develope this backend locally you need to install the following packages:
 
-* How to run the test suite
+```bash
 
-* Services (job queues, cache servers, search engines, etc.)
+bundle install
 
-* Deployment instructions
+```
 
-* ...
+Create following environment variables:
+
+```bash
+#!/bin/bash -eu
+
+# Variables always required
+GITHUB_CLIENT_ID=# <GitHub OAuth App Client ID>
+GITHUB_CLIENT_SECRET=# <GitHub OAuth App Client Secret>
+COGNITO_REDIRECT_URI=# https://<Your Cognito Domain>/oauth2/idpresponse
+# Change these if used with GitHub Enterprise (see below)
+GITHUB_API_URL=https://api.github.com
+GITHUB_LOGIN_URL=https://github.com
+
+export PORT=9000
+
+# To enable ngrok for local development
+RAILS_DEVELOPMENT_HOSTS = <ngrok url>
+```
+
+Crate a copy for `example-config.sh` file
+
+```bash
+cp example-config.sh config.sh
+# Edit config.sh file
+soruce config.sh
+```
+
+
