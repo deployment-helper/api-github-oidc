@@ -6,7 +6,6 @@ RUN mkdir "app"
 WORKDIR app
 COPY * .
 
-RUN gem install bundler
 RUN bundle install
 
 EXPOSE 3000

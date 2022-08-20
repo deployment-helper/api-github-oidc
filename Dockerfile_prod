@@ -1,0 +1,20 @@
+# This file used to create proudction image
+
+FROM ruby:3.0.0-alpine3.13
+
+# Install dependencies:
+# - build-base: To ensure certain gems can be compiled
+# - nodejs: Compile assets
+# - sqlite-dev: sqlite3 dependency for sqlite gem
+# - libxslt-dev libxml2-dev: Nokogiri native dependencies
+# - imagemagick: for image processing
+RUN apk --update add build-base nodejs tzdata sqlite-dev libxslt-dev libxml2-dev
+
+WORKDIR app
+COPY * .
+
+RUN bundle install --without development test
+
+EXPOSE 3000
+CMD ["bundle","exec","rails", "server", "--port", "3000","-b", "0.0.0.0"]
+
