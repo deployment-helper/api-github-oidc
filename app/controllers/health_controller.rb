@@ -1,6 +1,6 @@
 class HealthController < ApplicationController
   def index
-    render json:"hello world"
+    render json:"OK"
   end
 
   def under_development
